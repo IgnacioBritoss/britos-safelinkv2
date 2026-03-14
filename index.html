@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SafeLink v5</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07111f;
+  --bg-2:#0b1730;
+  --panel:#0d1b34cc;
+  --panel-solid:#0d1b34;
+  --line:#223355;
+  --text:#eaf1ff;
+  --muted:#97a8cd;
+  --blue:#4f8cff;
+  --blue-2:#78a7ff;
+  --green:#22c55e;
+  --yellow:#f59e0b;
+  --red:#ef4444;
+  --gray:#64748b;
+  --shadow:0 16px 40px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  font-family:Inter,system-ui,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(79,140,255,.16), transparent 30%),
+    radial-gradient(circle at 85% 10%, rgba(120,167,255,.12), transparent 24%),
+    linear-gradient(180deg,#06101d 0%,#091425 45%,#08111e 100%);
+}
+
+a{color:inherit;text-decoration:none}
+.hidden{display:none !important}
+
+.container{max-width:1180px;margin:0 auto;padding:0 28px}
+.section{padding:84px 0}
+.title{font-size:40px;line-height:1.05;margin:0 0 18px;font-weight:800;letter-spacing:-.03em}
+.subtitle{font-size:16px;line-height:1.7;color:var(--muted);max-width:720px}
+
+.nav{
+  position:sticky;
+  top:0;
+  z-index:30;
+  backdrop-filter:blur(16px);
+  background:rgba(5,12,24,.72);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.navInner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 0;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:800;
+  font-size:22px;
+  color:#8fc1ff;
+}
+
+.logoMark{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  position:relative;
+  background:linear-gradient(180deg,#59a2ff,#357dff);
+  box-shadow:0 10px 25px rgba(79,140,255,.35), inset 0 1px 0 rgba(255,255,255,.28);
+}
+.logoMark:before{
+  content:"";
+  position:absolute;
+  left:8px;
+  top:8px;
+  width:18px;
+  height:18px;
+  border:2px solid white;
+  border-radius:6px;
+  opacity:.95;
+}
+.logoMark:after{
+  content:"";
+  position:absolute;
+  left:12px;
+  top:14px;
+  width:9px;
+  height:5px;
+  border-left:2px solid white;
+  border-bottom:2px solid white;
+  transform:rotate(-45deg);
+}
+
+.navLinks{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.navLinks a,.navLinks button{
+  border:0;
+  background:transparent;
+  color:#d6e4ff;
+  padding:10px 14px;
+  border-radius:12px;
+  cursor:pointer;
+  font:inherit;
+}
+.navLinks a:hover,.navLinks button:hover{background:rgba(255,255,255,.05)}
+
+.pill{
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.03) !important;
+}
+
+.hero{padding:88px 0 60px}
+
+.heroGrid{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:28px;
+  align-items:center;
+}
+
+.heroCard,.glass{
+  background:linear-gradient(180deg,rgba(14,28,52,.88),rgba(9,20,38,.9));
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:var(--shadow);
+  border-radius:28px;
+}
+
+.heroCard{padding:38px}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 12px;
+  border-radius:999px;
+  background:rgba(79,140,255,.12);
+  color:#b8d2ff;
+  border:1px solid rgba(79,140,255,.2);
+  font-size:13px;
+  margin-bottom:16px;
+}
+
+.ctaRow{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:22px;
+}
+
+.btn{
+  border:0;
+  cursor:pointer;
+  border-radius:14px;
+  padding:12px 18px;
+  font:600 14px Inter,sans-serif;
+  transition:.2s ease;
+  color:white;
+  background:linear-gradient(180deg,#5b99ff,#3d7dff);
+  box-shadow:0 10px 24px rgba(79,140,255,.28);
+}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.04)}
+
+.btnSecondary{
+  background:rgba(255,255,255,.04);
+  box-shadow:none;
+  border:1px solid rgba(255,255,255,.08);
+  color:#e6efff;
+}
+
+.btnDanger{
+  background:linear-gradient(180deg,#ff7171,#ef4444);
+  box-shadow:0 10px 24px rgba(239,68,68,.22);
+}
+
+.btnGhost{
+  background:rgba(255,255,255,.06);
+  box-shadow:none;
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.heroPreview{padding:24px}
+
+.miniGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.miniCard{
+  padding:18px;
+  border-radius:20px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);
+}
+
+.miniCard h4{
+  margin:0 0 10px;
+  font-size:14px;
+  color:#cfe0ff;
+}
+
+.bigNumber{
+  font-size:30px;
+  font-weight:800;
+  letter-spacing:-.03em;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:22px;
+}
+
+.card{
+  background:linear-gradient(180deg,rgba(14,28,52,.9),rgba(10,20,39,.9));
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:22px;
+  padding:24px;
+  box-shadow:var(--shadow);
+}
+
+.card h3{margin:0 0 10px;font-size:19px}
+.card p{margin:0;color:var(--muted);line-height:1.6}
+
+.planPrice{font-size:34px;font-weight:800;margin:10px 0 8px}
+
+.list{display:grid;gap:10px;margin-top:18px}
+.listItem{display:flex;gap:10px;color:#dce8ff;font-size:14px}
+.listItem:before{content:"•";color:#7eb0ff}
+
+.panel{
+  background:linear-gradient(180deg,rgba(14,28,52,.92),rgba(9,19,37,.95));
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:24px;
+  padding:26px;
+  box-shadow:var(--shadow);
+}
+
+.authWrap{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.inputGroup{
+  display:grid;
+  gap:8px;
+  margin-top:16px;
+}
+
+.label{
+  font-size:13px;
+  color:#bdd1f7;
+}
+
+.field,textarea,select{
+  width:100%;
+  font:500 14px Inter,sans-serif;
+  color:white;
+  outline:none;
+  background:#0a1530;
+  border:1px solid #213457;
+  border-radius:14px;
+  padding:13px 14px;
+  transition:.2s ease;
+}
+
+.field:focus,textarea:focus,select:focus{
+  border-color:#4f8cff;
+  box-shadow:0 0 0 4px rgba(79,140,255,.12);
+}
+
+textarea{
+  resize:vertical;
+  min-height:104px;
+}
+
+.selectWrap{position:relative}
+.selectWrap:after{
+  content:"⌄";
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  pointer-events:none;
+  color:#9eb8ea;
+  font-size:18px;
+}
+
+select{
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  padding-right:40px;
+  background-image:none;
+}
+
+.fileUpload{
+  position:relative;
+  border:1px dashed rgba(120,167,255,.34);
+  border-radius:18px;
+  padding:14px;
+  background:linear-gradient(180deg,rgba(79,140,255,.07),rgba(255,255,255,.02));
+}
+.fileUpload input[type="file"]{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  cursor:pointer;
+}
+.fileUploadInner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.fileUploadLeft{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.fileChip{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:linear-gradient(180deg,#5b99ff,#3d7dff);
+  display:grid;
+  place-items:center;
+  font-size:18px;
+  box-shadow:0 10px 24px rgba(79,140,255,.2);
+}
+.fileTitle{font-size:14px;font-weight:600}
+.fileSub{font-size:12px;color:#92a7cc;margin-top:3px}
+.filePill{
+  font-size:12px;
+  color:#dcebff;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.04);
+}
+
+.authHint{
+  margin-top:14px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.65;
+}
+
+.statsGrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+
+.statBox{
+  padding:18px;
+  border-radius:20px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);
+}
+
+.statLabel{
+  font-size:12px;
+  color:#a8bddf;
+  margin-bottom:8px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+.statValue{
+  font-size:28px;
+  font-weight:800;
+  letter-spacing:-.03em;
+}
+
+.analysisGrid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:18px;
+  margin-top:20px;
+}
+
+.resultHeader{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
+  flex-wrap:wrap;
+}
+
+.profileTag{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  font-size:13px;
+  color:#d8e6ff;
+}
+
+.scoreRing{
+  width:124px;
+  height:124px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-weight:800;
+  font-size:28px;
+  position:relative;
+}
+.scoreRing:before{
+  content:"";
+  position:absolute;
+  inset:10px;
+  border-radius:50%;
+  background:#0b1730;
+  border:1px solid rgba(255,255,255,.06);
+}
+.scoreRing span{position:relative;z-index:1}
+
+.kpiList{
+  display:grid;
+  gap:12px;
+  margin-top:18px;
+}
+
+.kpiRow{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 0;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.kpiRow:last-child{border-bottom:0}
+
+.progress{
+  height:8px;
+  background:#132442;
+  border-radius:999px;
+  overflow:hidden;
+  margin-top:8px;
+}
+.progress > i{
+  display:block;
+  height:100%;
+  border-radius:999px;
+  background:linear-gradient(90deg,#7ab1ff,#4f8cff);
+}
+
+.reportBox{
+  margin-top:22px;
+  padding-top:22px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.fileNote{font-size:12px;color:#8ea4cd;margin-top:8px}
+
+.historyList,.publicList,.adminList,.reviewList,.helpersList{
+  display:grid;
+  gap:14px;
+  margin-top:18px;
+}
+
+.itemCard{
+  padding:18px;
+  border-radius:18px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);
+}
+
+.itemTop{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
+  flex-wrap:wrap;
+}
+
+.itemMeta{
+  font-size:13px;
+  color:#9cb0d5;
+}
+
+.reputationBadge{
+  padding:7px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.badgeGreen{
+  background:rgba(34,197,94,.12);
+  color:#7ee0a0;
+  border:1px solid rgba(34,197,94,.22);
+}
+
+.badgeYellow{
+  background:rgba(245,158,11,.12);
+  color:#ffd48a;
+  border:1px solid rgba(245,158,11,.24);
+}
+
+.badgeRed{
+  background:rgba(239,68,68,.12);
+  color:#ff9f9f;
+  border:1px solid rgba(239,68,68,.25);
+}
+
+.badgeBlue{
+  background:rgba(79,140,255,.12);
+  color:#bbd4ff;
+  border:1px solid rgba(79,140,255,.22);
+}
+
+.adminColumns{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:18px;
+  margin-top:20px;
+}
+
+.adminActions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:14px;
+}
+
+.statusLine{
+  margin-top:10px;
+  font-size:12px;
+  color:#9eb0cf;
+}
+
+.resolved{
+  opacity:.62;
+  filter:saturate(.7);
+}
+
+.footer{
+  padding:48px 0 70px;
+  color:#7f93ba;
+  text-align:center;
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:24px;
+  transform:translateX(-50%) translateY(20px);
+  background:#102244;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:var(--shadow);
+  padding:14px 18px;
+  border-radius:14px;
+  color:white;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s ease;
+  z-index:60;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+.empty{
+  color:#8ca0c7;
+  font-size:14px;
+  padding:22px;
+  border:1px dashed rgba(255,255,255,.12);
+  border-radius:18px;
+  text-align:center;
+  background:rgba(255,255,255,.02);
+}
+
+@media (max-width:980px){
+  .heroGrid,.analysisGrid,.adminColumns,.authWrap,.cards,.statsGrid{grid-template-columns:1fr}
+  .title{font-size:34px}
+  .navInner{gap:14px;align-items:flex-start;flex-direction:column}
+}
+</style>
+</head>
+<body>
+  <div class="nav">
+    <div class="container navInner">
+      <div class="brand">
+        <div class="logoMark"></div>
+        <span>SafeLink</span>
+      </div>
+      <div class="navLinks">
+        <a href="#inicio">Inicio</a>
+        <a href="#funciona">Cómo funciona</a>
+        <a href="#planes">Planes</a>
+        <a href="#acceso">Acceso</a>
+        <a href="#analizar" class="pill">Analizar perfil</a>
+        <button class="pill" onclick="showAdminLogin()">Admin</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="hero" id="inicio">
+    <div class="container heroGrid">
+      <div class="heroCard">
+        <div class="badge">Verificación digital para Discord, WhatsApp, Email, Telegram y Steam</div>
+        <h1 class="title">Verificá con quién hablás antes de confiar.</h1>
+        <p class="subtitle">
+          SafeLink simula una plataforma que cruza reportes, patrones de abuso, foros de seguridad y reputación acumulativa para ayudar a gamers, oficinistas y usuarios cotidianos a detectar perfiles riesgosos.
+        </p>
+        <div class="ctaRow">
+          <button class="btn" onclick="scrollToId('acceso')">Probar análisis</button>
+          <button class="btn btnSecondary" onclick="scrollToId('planes')">Ver planes</button>
+        </div>
+      </div>
+
+      <div class="glass heroPreview">
+        <div class="miniGrid">
+          <div class="miniCard">
+            <h4>Perfiles analizados</h4>
+            <div class="bigNumber">18.432</div>
+            <div class="itemMeta">Últimos 30 días</div>
+          </div>
+          <div class="miniCard">
+            <h4>Reportes revisados</h4>
+            <div class="bigNumber">3.184</div>
+            <div class="itemMeta">IA + moderación humana</div>
+          </div>
+          <div class="miniCard">
+            <h4>Usuarios verificados</h4>
+            <div class="bigNumber">7.921</div>
+            <div class="itemMeta">Email, teléfono y DNI</div>
+          </div>
+          <div class="miniCard">
+            <h4>Riesgos detectados</h4>
+            <div class="bigNumber">612</div>
+            <div class="itemMeta">Coincidencias relevantes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="funciona">
+    <div class="container">
+      <h2 class="title" style="font-size:34px">Cómo funcionaría SafeLink como empresa</h2>
+      <p class="subtitle">
+        El proyecto muestra una plataforma completa: validación reforzada del usuario, límite de búsquedas free, reputación acumulativa del perfil revisado y un panel de moderación para evitar difamaciones y reportes falsos.
+      </p>
+      <div class="cards">
+        <div class="card">
+          <h3>Análisis automático</h3>
+          <p>El sistema simula búsquedas en APIs de spam, listas de bloqueo, reportes de comunidad y señales de comportamiento sospechoso.</p>
+        </div>
+        <div class="card">
+          <h3>Reputación acumulativa</h3>
+          <p>Cada perfil público guarda reputación, reportes confirmados, reportes rechazados y coincidencias históricas.</p>
+        </div>
+        <div class="card">
+          <h3>Validación de reportes</h3>
+          <p>Los reportes piden fundamento, evidencia y quedan pendientes hasta revisión humana o resolución automática asistida por IA.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="planes">
+    <div class="container">
+      <h2 class="title" style="font-size:34px">Planes simulados</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Free</h3>
+          <div class="planPrice">$0</div>
+          <p>Ideal para mostrar el límite del producto en la demo.</p>
+          <div class="list">
+            <div class="listItem">5 búsquedas por cuenta</div>
+            <div class="listItem">Historial básico</div>
+            <div class="listItem">Envío de reportes fundamentados</div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Pro</h3>
+          <div class="planPrice">$7.99</div>
+          <p>Simula el plan para usuarios intensivos.</p>
+          <div class="list">
+            <div class="listItem">Búsquedas ilimitadas</div>
+            <div class="listItem">Alertas y seguimiento</div>
+            <div class="listItem">Perfiles públicos completos</div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Empresas</h3>
+          <div class="planPrice">Custom</div>
+          <p>Versión orientada a equipos, soporte y APIs.</p>
+          <div class="list">
+            <div class="listItem">Panel multiusuario</div>
+            <div class="listItem">API de reputación</div>
+            <div class="listItem">Moderación centralizada</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="acceso">
+    <div class="container">
+      <h2 class="title" style="font-size:34px">Acceso y verificación</h2>
+      <div class="authWrap">
+        <div class="panel">
+          <h3 style="margin-top:0">Iniciar sesión</h3>
+
+          <div class="inputGroup">
+            <label class="label">Email</label>
+            <input class="field" id="loginEmail" placeholder="tu@email.com">
+          </div>
+
+          <div class="inputGroup">
+            <label class="label">Contraseña</label>
+            <input class="field" id="loginPassword" type="password" placeholder="••••••••">
+          </div>
+
+          <div class="inputGroup">
+            <label class="label">Número de teléfono</label>
+            <input class="field" id="loginPhone" placeholder="+5491122334455">
+          </div>
+
+          <div class="inputGroup">
+            <label class="label">DNI</label>
+            <input class="field" id="loginDni" placeholder="ej: 45123456">
+          </div>
+
+          <div class="ctaRow">
+            <button class="btn" onclick="loginUser()">Entrar</button>
+            <button class="btn btnSecondary" onclick="fillDemoUser()">Cargar demo</button>
+          </div>
+
+          <p class="authHint">
+            La demo simula una verificación más estricta con email, teléfono y DNI para transmitir mayor seguridad al usuario y a la plataforma.
+          </p>
+        </div>
+
+        <div class="panel">
+          <h3 style="margin-top:0">Admin login</h3>
+
+          <div class="inputGroup">
+            <label class="label">Usuario admin</label>
+            <input class="field" id="adminUser" placeholder="admin">
+          </div>
+
+          <div class="inputGroup">
+            <label class="label">Contraseña</label>
+            <input class="field" id="adminPass" type="password" placeholder="safelink">
+          </div>
+
+          <div class="ctaRow">
+            <button class="btn btnSecondary" onclick="loginAdmin()">Abrir panel admin</button>
+            <button class="btn btnGhost" onclick="fillAdminDemo()">Cargar credenciales</button>
+          </div>
+
+          <p class="authHint">
+            Demo admin: usuario <b>admin</b> y contraseña <b>safelink</b>. Desde el panel se ven reportes pendientes, reportes resueltos, perfiles públicos, colaboradores confiables y estadísticas generales del sistema.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section hidden" id="dashboard">
+    <div class="container">
+      <h2 class="title" style="font-size:34px">Panel del usuario</h2>
+      <div class="statsGrid">
+        <div class="statBox">
+          <div class="statLabel">Cuenta</div>
+          <div class="statValue" id="dashPlan">Free</div>
+        </div>
+        <div class="statBox">
+          <div class="statLabel">Búsquedas usadas</div>
+          <div class="statValue"><span id="dashUsed">0</span>/5</div>
+        </div>
+        <div class="statBox">
+          <div class="statLabel">Reportes enviados</div>
+          <div class="statValue" id="dashReports">0</div>
+        </div>
+        <div class="statBox">
+          <div class="statLabel">Estado</div>
+          <div class="statValue" id="dashState">Activa</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section hidden" id="analizar">
+    <div class="container">
+      <h2 class="title" style="font-size:34px">Analizar perfil</h2>
+      <div class="panel">
+        <div class="inputGroup">
+          <label class="label">Tipo de búsqueda</label>
+          <div class="selectWrap">
+            <select id="tipo" onchange="updatePlaceholder()">
+              <option value="discord">Discord</option>
+              <option value="whatsapp">WhatsApp</option>
+              <option value="email">Email</option>
+              <option value="steam">Steam</option>
+              <option value="telegram">Telegram</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="inputGroup">
+          <label class="label">Identificador</label>
+          <input class="field" id="query" placeholder="ej: gamer123#4821">
+        </div>
+
+        <div class="ctaRow">
+          <button class="btn" onclick="analizar()">Analizar perfil</button>
+          <button class="btn btnSecondary" onclick="fillSearchDemo()">Cargar ejemplo</button>
+        </div>
+
+        <p class="authHint" id="limitText">Cuenta free: 5 búsquedas disponibles para la demo.</p>
+
+        <div class="analysisGrid hidden" id="resultadoWrap">
+          <div class="panel" style="padding:22px">
+            <div class="resultHeader">
+              <div>
+                <div class="profileTag" id="resultTarget">Perfil</div>
+                <h3 style="font-size:28px;margin:14px 0 6px" id="resultName">—</h3>
+                <div class="itemMeta" id="resultMeta">Sin análisis cargado</div>
+              </div>
+              <div class="scoreRing" id="scoreRing">
+                <span id="rep">0</span>
+              </div>
+            </div>
+            <div class="kpiList" id="stats"></div>
+          </div>
+
+          <div class="panel" style="padding:22px">
+            <div class="resultHeader">
+              <div>
+                <div class="statLabel">Riesgo estimado</div>
+                <div style="font-size:28px;font-weight:800;margin-top:4px" id="risk"></div>
+              </div>
+              <div id="riskBadge"></div>
+            </div>
+            <div class="kpiList" id="signals"></div>
+
+            <div class="reportBox">
+              <h3 style="margin:0 0 8px">Reportar este perfil</h3>
+              <p class="itemMeta" style="margin:0 0 14px">
+                El reporte no impacta automáticamente. Queda pendiente hasta revisión manual o resolución automática asistida por IA.
+              </p>
+
+              <div class="inputGroup">
+                <label class="label">Motivo</label>
+                <div class="selectWrap">
+                  <select id="motivo">
+                    <option>Spam</option>
+                    <option>Grooming</option>
+                    <option>Suplantación</option>
+                    <option>Acoso / bullying</option>
+                    <option>Estafa</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="inputGroup">
+                <label class="label">Descripción fundamentada</label>
+                <textarea id="descripcion" placeholder="Describe qué ocurrió, cuándo pasó y por qué el reporte debería ser revisado."></textarea>
+              </div>
+
+              <div class="inputGroup">
+                <label class="label">Adjuntar captura o chat exportado</label>
+                <label class="fileUpload">
+                  <input type="file" id="evidencia" onchange="updateFileLabel()">
+                  <div class="fileUploadInner">
+                    <div class="fileUploadLeft">
+                      <div class="fileChip">📎</div>
+                      <div>
+                        <div class="fileTitle" id="fileTitle">Elegir archivo</div>
+                        <div class="fileSub">Capturas, exportes de chat o evidencia visual</div>
+                      </div>
+                    </div>
+                    <div class="filePill" id="fileStatus">Sin archivo</div>
+                  </div>
+                </label>
+                <div class="fileNote">Se simula el envío de evidencia para screenshots, recortes de chat o exportes.</div>
+              </div>
+
+              <div class="ctaRow">
+                <button class="btn" onclick="enviarReporte()">Enviar reporte</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section hidden" id="historySection">
+    <div class="container">
+      <h2 class="title" style="font-size:34px">Historial de búsquedas</h2>
+      <div class="historyList" id="historyList"></div>
+    </div>
+  </section>
+
+  <section class="section hidden" id="publicSection">
+    <div class="container">
+      <h2 class="title" style="font-size:34px">Perfiles públicos simulados</h2>
+      <p class="subtitle">
+        Estos perfiles persisten durante la sesión y acumulan reputación y reportes revisados. Sirven para mostrar cómo SafeLink publicaría fichas resumidas con estado y trazabilidad.
+      </p>
+      <div class="publicList" id="publicList"></div>
+    </div>
+  </section>
+
+  <section class="section hidden" id="adminPanel">
+    <div class="container">
+      <h2 class="title" style="font-size:34px">Panel de moderación</h2>
+
+      <div class="statsGrid">
+        <div class="statBox">
+          <div class="statLabel">Usuarios registrados</div>
+          <div class="statValue" id="statUsers">1432</div>
+        </div>
+        <div class="statBox">
+          <div class="statLabel">Búsquedas totales</div>
+          <div class="statValue" id="statSearch">8932</div>
+        </div>
+        <div class="statBox">
+          <div class="statLabel">Reportes enviados</div>
+          <div class="statValue" id="statReports">0</div>
+        </div>
+        <div class="statBox">
+          <div class="statLabel">Perfiles riesgosos</div>
+          <div class="statValue" id="statRisky">183</div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:20px">
+        <div class="resultHeader">
+          <div>
+            <h3 style="margin:0">Usuarios confiables que colaboraron</h3>
+            <div class="itemMeta">Perfiles simulados con historial positivo de reportes útiles y validaciones correctas.</div>
+          </div>
+          <span class="reputationBadge badgeBlue">Programa Trusted Helpers</span>
+        </div>
+        <div class="helpersList" id="helpersList"></div>
+      </div>
+
+      <div class="adminColumns">
+        <div class="panel">
+          <div class="resultHeader">
+            <div>
+              <h3 style="margin:0">Pendientes de revisión</h3>
+              <div class="itemMeta">Reportes enviados por usuarios verificados en la demo.</div>
+            </div>
+            <div class="adminActions">
+              <button class="btn btnSecondary" onclick="resolverIA()">Resolver todos con IA</button>
+              <button class="btn btnGhost" onclick="seedAdminReports()">Cargar reportes demo</button>
+            </div>
+          </div>
+          <div class="adminList" id="reportes"></div>
+        </div>
+
+        <div class="panel">
+          <h3 style="margin-top:0">Revisados y verificados</h3>
+          <div class="reviewList" id="reviewed"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="footer">
+    <div class="container">SafeLink v5 · Prototipo de reputación y verificación digital</div>
+  </div>
+
+<script>
+let currentUser = null;
+let currentTargetKey = null;
+let currentTargetType = null;
+let searchCount = 0;
+let searchHistory = [];
+let reportes = [];
+let revisados = [];
+let totalSearchBase = 8932;
+let totalUsersBase = 1432;
+let totalRiskyBase = 183;
+let totalReportsBase = 0;
+
+const trustedHelpers = [
+  {name:'Lucía R.', score:98, reports:24, accuracy:'96%', role:'Moderadora voluntaria verificada'},
+  {name:'Tomás G.', score:94, reports:17, accuracy:'93%', role:'Colaborador anti-spam'},
+  {name:'Valentina M.', score:91, reports:13, accuracy:'91%', role:'Revisora de evidencia'},
+  {name:'Nicolás A.', score:89, reports:11, accuracy:'90%', role:'Usuario confiable recurrente'}
+];
+
+const fakeProfiles = {
+  "discord:gamerwolf#7712": {
+    display:"gamerwolf#7712",
+    type:"Discord",
+    reputation:91,
+    confirmedReports:0,
+    rejectedReports:1,
+    forumMatches:0,
+    suspicious:8,
+    age:"3 años",
+    level:"Confiable",
+    notes:[
+      "Sin coincidencias graves.",
+      "Antigüedad consistente.",
+      "Perfil referenciado en comunidades gaming sin alertas relevantes."
+    ]
+  },
+  "discord:darktrade#2210": {
+    display:"darktrade#2210",
+    type:"Discord",
+    reputation:58,
+    confirmedReports:3,
+    rejectedReports:1,
+    forumMatches:2,
+    suspicious:43,
+    age:"10 meses",
+    level:"Precaución",
+    notes:[
+      "Coincidencias en reportes de spam.",
+      "Actividad irregular en comunidades públicas.",
+      "Múltiples cambios de nickname en poco tiempo."
+    ]
+  },
+  "email:user_spam@email.com": {
+    display:"user_spam@email.com",
+    type:"Email",
+    reputation:24,
+    confirmedReports:9,
+    rejectedReports:1,
+    forumMatches:7,
+    suspicious:82,
+    age:"6 meses",
+    level:"Riesgo alto",
+    notes:[
+      "Múltiples señalamientos por spam.",
+      "Coincidencias en listas de bloqueo.",
+      "Patrones de contacto masivo detectados."
+    ]
+  },
+  "whatsapp:+5491122334455": {
+    display:"+54 9 11 2233 4455",
+    type:"WhatsApp",
+    reputation:74,
+    confirmedReports:1,
+    rejectedReports:0,
+    forumMatches:1,
+    suspicious:22,
+    age:"1 año",
+    level:"Riesgo medio",
+    notes:[
+      "Reporte aislado en revisión histórica.",
+      "Uso estable del número.",
+      "Sin alertas severas confirmadas."
+    ]
+  },
+  "telegram:@marketdrops": {
+    display:"@marketdrops",
+    type:"Telegram",
+    reputation:39,
+    confirmedReports:5,
+    rejectedReports:2,
+    forumMatches:4,
+    suspicious:67,
+    age:"8 meses",
+    level:"Riesgo alto",
+    notes:[
+      "Señales de envío repetitivo.",
+      "Reportes contradictorios de usuarios.",
+      "Actividad comercial no verificada."
+    ]
+  },
+  "steam:steamcommunity/id/player": {
+    display:"steamcommunity/id/player",
+    type:"Steam",
+    reputation:83,
+    confirmedReports:1,
+    rejectedReports:2,
+    forumMatches:0,
+    suspicious:12,
+    age:"4 años",
+    level:"Confiable",
+    notes:[
+      "Perfil de larga antigüedad.",
+      "Sin patrones severos.",
+      "Actividad consistente con cuenta de gaming."
+    ]
+  }
+};
+
+function saveSession(){
+  sessionStorage.setItem('safelink_state', JSON.stringify({
+    currentUser,
+    currentTargetKey,
+    currentTargetType,
+    searchCount,
+    searchHistory,
+    reportes,
+    revisados,
+    fakeProfiles,
+    totalSearchBase,
+    totalUsersBase,
+    totalRiskyBase,
+    totalReportsBase
+  }));
+}
+
+function loadSession(){
+  const raw = sessionStorage.getItem('safelink_state');
+  if(!raw) return;
+  try{
+    const data = JSON.parse(raw);
+    currentUser = data.currentUser || null;
+    currentTargetKey = data.currentTargetKey || null;
+    currentTargetType = data.currentTargetType || null;
+    searchCount = data.searchCount || 0;
+    searchHistory = data.searchHistory || [];
+    reportes = data.reportes || [];
+    revisados = data.revisados || [];
+    totalSearchBase = data.totalSearchBase || totalSearchBase;
+    totalUsersBase = data.totalUsersBase || totalUsersBase;
+    totalRiskyBase = data.totalRiskyBase || totalRiskyBase;
+    totalReportsBase = data.totalReportsBase || totalReportsBase;
+
+    if(data.fakeProfiles){
+      Object.keys(data.fakeProfiles).forEach(k => {
+        fakeProfiles[k] = data.fakeProfiles[k];
+      });
+    }
+  }catch(e){}
+}
+
+function toast(text){
+  const t = document.getElementById('toast');
+  t.textContent = text;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+function scrollToId(id){
+  document.getElementById(id).scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function showAdminLogin(){
+  scrollToId('acceso');
+  document.getElementById('adminUser').focus();
+}
+
+function fillDemoUser(){
+  document.getElementById('loginEmail').value = 'demo@safelink.app';
+  document.getElementById('loginPassword').value = 'demo1234';
+  document.getElementById('loginPhone').value = '+5491122334455';
+  document.getElementById('loginDni').value = '45123456';
+}
+
+function fillAdminDemo(){
+  document.getElementById('adminUser').value = 'admin';
+  document.getElementById('adminPass').value = 'safelink';
+}
+
+function loginUser(){
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPassword').value.trim();
+  const phone = document.getElementById('loginPhone').value.trim();
+  const dni = document.getElementById('loginDni').value.trim();
+
+  if(!email || !pass || !phone || !dni){
+    toast('Completá email, contraseña, teléfono y DNI.');
+    return;
+  }
+
+  if(!/^.+@.+\..+$/.test(email)){
+    toast('Ingresá un email válido para la demo.');
+    return;
+  }
+
+  if(!/^\+?[0-9]{8,15}$/.test(phone)){
+    toast('Ingresá un teléfono válido para la demo.');
+    return;
+  }
+
+  if(!/^\d{7,9}$/.test(dni)){
+    toast('Ingresá un DNI válido para la demo.');
+    return;
+  }
+
+  currentUser = {
+    email,
+    phone,
+    dni,
+    plan:'Free',
+    verifiedEmail:true,
+    verifiedPhone:true,
+    verifiedDni:true,
+    reportsSent: currentUser?.reportsSent || 0
+  };
+
+  document.getElementById('dashboard').classList.remove('hidden');
+  document.getElementById('analizar').classList.remove('hidden');
+  document.getElementById('historySection').classList.remove('hidden');
+  document.getElementById('publicSection').classList.remove('hidden');
+
+  updateDashboard();
+  renderHistory();
+  renderPublicProfiles();
+  saveSession();
+
+  toast('Sesión iniciada con verificación reforzada.');
+  scrollToId('dashboard');
+}
+
+function loginAdmin(){
+  const u = document.getElementById('adminUser').value.trim();
+  const p = document.getElementById('adminPass').value.trim();
+
+  if(u !== 'admin' || p !== 'safelink'){
+    toast('Credenciales admin incorrectas.');
+    return;
+  }
+
+  document.getElementById('adminPanel').classList.remove('hidden');
+  renderAdmin();
+  scrollToId('adminPanel');
+  toast('Panel de moderación habilitado.');
+}
+
+function updateDashboard(){
+  if(!currentUser) return;
+
+  document.getElementById('dashPlan').textContent = currentUser.plan;
+  document.getElementById('dashUsed').textContent = searchCount;
+  document.getElementById('dashReports').textContent = currentUser.reportsSent || 0;
+  document.getElementById('dashState').textContent = searchCount >= 5 ? 'Límite free alcanzado' : 'Activa';
+
+  document.getElementById('limitText').textContent = searchCount >= 5
+    ? 'Límite free alcanzado. Para seguir, la demo simula que debés pasar al plan Pro.'
+    : `Cuenta free: ${5 - searchCount} búsquedas disponibles para la demo.`;
+}
+
+function updatePlaceholder(){
+  const tipo = document.getElementById('tipo').value;
+  const input = document.getElementById('query');
+
+  if(tipo === 'discord') input.placeholder = 'ej: gamer123#4821';
+  if(tipo === 'whatsapp') input.placeholder = 'ej: +5491122334455';
+  if(tipo === 'email') input.placeholder = 'ej: usuario@email.com';
+  if(tipo === 'steam') input.placeholder = 'ej: steamcommunity/id/player';
+  if(tipo === 'telegram') input.placeholder = 'ej: @usuario';
+}
+
+function fillSearchDemo(){
+  const tipo = document.getElementById('tipo').value;
+  const input = document.getElementById('query');
+
+  const examples = {
+    discord:'gamerwolf#7712',
+    whatsapp:'+5491122334455',
+    email:'user_spam@email.com',
+    steam:'steamcommunity/id/player',
+    telegram:'@marketdrops'
+  };
+
+  input.value = examples[tipo];
+}
+
+function validarFormato(tipo, texto){
+  if(tipo === 'whatsapp') return /^\+?[0-9]{8,15}$/.test(texto);
+  if(tipo === 'email') return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(texto);
+  if(tipo === 'discord') return /^.+#\d{4}$/.test(texto);
+  if(tipo === 'telegram') return /^@.{3,}$/.test(texto);
+  if(tipo === 'steam') return texto.length > 3;
+  return false;
+}
+
+function mapTypeLabel(type){
+  return ({
+    discord:'Discord',
+    whatsapp:'WhatsApp',
+    email:'Email',
+    steam:'Steam',
+    telegram:'Telegram'
+  })[type] || type;
+}
+
+function getProfileKey(type, raw){
+  return `${type}:${raw.toLowerCase()}`;
+}
+
+function createGeneratedProfile(key, raw, type){
+  const rep = Math.floor(Math.random()*52) + 32;
+  const profile = {
+    display: raw,
+    type: mapTypeLabel(type),
+    reputation: rep,
+    confirmedReports: Math.floor(Math.random()*4),
+    rejectedReports: Math.floor(Math.random()*2),
+    forumMatches: Math.floor(Math.random()*5),
+    suspicious: Math.floor(Math.random()*70),
+    age: `${Math.floor(Math.random()*4)+1} años`,
+    level: rep >= 80 ? 'Confiable' : rep >= 60 ? 'Precaución' : rep >= 40 ? 'Riesgo medio' : 'Riesgo alto',
+    notes: [
+      'Perfil generado para la simulación.',
+      'Coincidencias heurísticas en fuentes públicas.',
+      'Se recomienda continuar con precaución si el contacto es reciente.'
+    ]
+  };
+  fakeProfiles[key] = profile;
+  return profile;
+}
+
+function analyzeLevel(rep){
+  if(rep >= 80) return {text:'Confiable', color:'var(--green)', badge:'badgeGreen'};
+  if(rep >= 60) return {text:'Precaución', color:'var(--yellow)', badge:'badgeYellow'};
+  if(rep >= 40) return {text:'Riesgo medio', color:'var(--yellow)', badge:'badgeYellow'};
+  return {text:'Riesgo alto', color:'var(--red)', badge:'badgeRed'};
+}
+
+function renderScore(rep){
+  const ring = document.getElementById('scoreRing');
+  const deg = Math.max(18, Math.min(360, rep * 3.6));
+  ring.style.background = `conic-gradient(#4f8cff ${deg}deg, rgba(255,255,255,.08) ${deg}deg)`;
+}
+
+function renderStats(profile){
+  const rows = [
+    ['Reputación acumulativa', `${profile.reputation}/100`, profile.reputation],
+    ['Patrón sospechoso', `${profile.suspicious}%`, profile.suspicious],
+    ['Coincidencias en foros', `${profile.forumMatches}`, Math.min(100, profile.forumMatches*20)],
+    ['Reportes confirmados', `${profile.confirmedReports}`, Math.min(100, profile.confirmedReports*12)],
+    ['Reportes rechazados', `${profile.rejectedReports}`, Math.min(100, profile.rejectedReports*14)]
+  ];
+
+  document.getElementById('stats').innerHTML = rows.map(r => `
+    <div>
+      <div class="kpiRow"><span>${r[0]}</span><strong>${r[1]}</strong></div>
+      <div class="progress"><i style="width:${r[2]}%"></i></div>
+    </div>
+  `).join('');
+}
+
+function renderSignals(profile){
+  document.getElementById('signals').innerHTML = profile.notes.map((n,i) => `
+    <div class="itemCard">
+      <div class="itemTop">
+        <strong>Señal ${i+1}</strong>
+        <span class="itemMeta">Fuente simulada</span>
+      </div>
+      <div class="statusLine">${n}</div>
+    </div>
+  `).join('');
+}
+
+function analizar(){
+  if(!currentUser){
+    toast('Primero iniciá sesión para usar el análisis.');
+    scrollToId('acceso');
+    return;
+  }
+
+  if(searchCount >= 5 && currentUser.plan === 'Free'){
+    toast('Límite free alcanzado. La demo ahora simula que necesitás el plan Pro.');
+    return;
+  }
+
+  const tipo = document.getElementById('tipo').value;
+  const raw = document.getElementById('query').value.trim();
+
+  if(!validarFormato(tipo, raw)){
+    toast('El identificador no coincide con el formato esperado.');
+    return;
+  }
+
+  const key = getProfileKey(tipo, raw);
+  currentTargetKey = key;
+  currentTargetType = tipo;
+
+  const profile = fakeProfiles[key] || createGeneratedProfile(key, raw, tipo);
+  const state = analyzeLevel(profile.reputation);
+
+  searchCount += 1;
+  totalSearchBase += 1;
+
+  searchHistory.unshift({
+    raw,
+    type:mapTypeLabel(tipo),
+    date:new Date().toLocaleString('es-AR'),
+    reputation:profile.reputation,
+    level:state.text
+  });
+  searchHistory = searchHistory.slice(0,12);
+
+  document.getElementById('resultadoWrap').classList.remove('hidden');
+  document.getElementById('resultTarget').textContent = `${profile.type} · Perfil público`;
+  document.getElementById('resultName').textContent = profile.display;
+  document.getElementById('resultMeta').textContent =
+    `Antigüedad estimada: ${profile.age} · Reportes confirmados: ${profile.confirmedReports} · Reportes rechazados: ${profile.rejectedReports}`;
+
+  document.getElementById('rep').textContent = profile.reputation;
+  document.getElementById('risk').textContent = state.text;
+  document.getElementById('risk').style.color = state.color;
+  document.getElementById('riskBadge').innerHTML = `<span class="reputationBadge ${state.badge}">${state.text}</span>`;
+
+  renderScore(profile.reputation);
+  renderStats(profile);
+  renderSignals(profile);
+  renderHistory();
+  renderPublicProfiles();
+  updateDashboard();
+  renderAdmin();
+  saveSession();
+
+  toast('Análisis completado. Resultado simulado cargado.');
+}
+
+function updateFileLabel(){
+  const input = document.getElementById('evidencia');
+  const title = document.getElementById('fileTitle');
+  const status = document.getElementById('fileStatus');
+  if(!input || !title || !status) return;
+
+  if(input.files && input.files[0]){
+    title.textContent = input.files[0].name;
+    status.textContent = 'Archivo listo';
+  }else{
+    title.textContent = 'Elegir archivo';
+    status.textContent = 'Sin archivo';
+  }
+}
+
+function enviarReporte(){
+  if(!currentUser || !currentTargetKey){
+    toast('Primero analizá un perfil.');
+    return;
+  }
+
+  const motivo = document.getElementById('motivo').value;
+  const desc = document.getElementById('descripcion').value.trim();
+  const evidencia = document.getElementById('evidencia').value;
+
+  if(desc.length < 18){
+    toast('El reporte necesita una descripción más fundamentada.');
+    return;
+  }
+
+  const target = fakeProfiles[currentTargetKey];
+  const reporte = {
+    id: Date.now(),
+    targetKey: currentTargetKey,
+    usuario: target.display,
+    tipo: target.type,
+    motivo,
+    desc,
+    evidencia: evidencia ? 'Adjunta' : 'Sin adjunto',
+    estado:'Pendiente',
+    ia:'Pendiente de análisis automático',
+    fecha:new Date().toLocaleString('es-AR')
+  };
+
+  reportes.unshift(reporte);
+  totalReportsBase += 1;
+  currentUser.reportsSent = (currentUser.reportsSent || 0) + 1;
+
+  document.getElementById('descripcion').value = '';
+  document.getElementById('evidencia').value = '';
+  updateFileLabel();
+
+  updateDashboard();
+  renderAdmin();
+  saveSession();
+
+  toast('Reporte enviado a moderación. No impacta hasta ser validado.');
+}
+
+function renderHistory(){
+  const box = document.getElementById('historyList');
+  if(!searchHistory.length){
+    box.innerHTML = '<div class="empty">Todavía no hay búsquedas en esta sesión.</div>';
+    return;
+  }
+
+  box.innerHTML = searchHistory.map(h => `
+    <div class="itemCard">
+      <div class="itemTop">
+        <div>
+          <strong>${h.raw}</strong>
+          <div class="itemMeta">${h.type} · ${h.date}</div>
+        </div>
+        <span class="reputationBadge ${h.reputation >= 80 ? 'badgeGreen' : h.reputation >= 60 ? 'badgeYellow' : 'badgeRed'}">${h.level}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderPublicProfiles(){
+  const box = document.getElementById('publicList');
+  const keys = Object.keys(fakeProfiles);
+
+  if(!keys.length){
+    box.innerHTML = '<div class="empty">No hay perfiles públicos generados todavía.</div>';
+    return;
+  }
+
+  box.innerHTML = keys.slice(0,12).map(key => {
+    const p = fakeProfiles[key];
+    const state = analyzeLevel(p.reputation);
+
+    return `
+      <div class="itemCard">
+        <div class="itemTop">
+          <div>
+            <strong>${p.display}</strong>
+            <div class="itemMeta">${p.type} · Antigüedad: ${p.age}</div>
+          </div>
+          <span class="reputationBadge ${state.badge}">${p.reputation}/100</span>
+        </div>
+        <div class="statusLine">Reportes confirmados: ${p.confirmedReports} · Reportes rechazados: ${p.rejectedReports} · Foros: ${p.forumMatches}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderTrustedHelpers(){
+  const helpersBox = document.getElementById('helpersList');
+  if(!helpersBox) return;
+
+  helpersBox.innerHTML = trustedHelpers.map(h => `
+    <div class="itemCard">
+      <div class="itemTop">
+        <div>
+          <strong>${h.name}</strong>
+          <div class="itemMeta">${h.role}</div>
+        </div>
+        <span class="reputationBadge badgeGreen">Score ${h.score}</span>
+      </div>
+      <div class="statusLine">Reportes útiles: ${h.reports} · Precisión histórica: ${h.accuracy}</div>
+    </div>
+  `).join('');
+}
+
+function applyReviewToProfile(reporte, approved, autoIA){
+  const p = fakeProfiles[reporte.targetKey];
+  if(!p) return;
+
+  if(approved){
+    p.confirmedReports += 1;
+    p.reputation = Math.max(3, p.reputation - (autoIA ? 7 : 10));
+    p.suspicious = Math.min(98, p.suspicious + (autoIA ? 6 : 9));
+    p.notes.unshift(autoIA
+      ? 'La IA confirmó un reporte y ajustó la reputación.'
+      : 'Moderación confirmó un reporte y ajustó la reputación.');
+  }else{
+    p.rejectedReports += 1;
+    p.reputation = Math.min(98, p.reputation + 1);
+    p.notes.unshift('Se rechazó un reporte y no se aplicó penalización real.');
+  }
+
+  const newState = analyzeLevel(p.reputation).text;
+  p.level = newState;
+
+  if(p.reputation < 40) totalRiskyBase += 1;
+}
+
+function aprobar(i){
+  const r = reportes[i];
+  if(!r) return;
+
+  r.estado = 'Confirmado';
+  r.ia = 'Análisis + revisión humana: coherencia alta';
+
+  applyReviewToProfile(r, true, false);
+
+  revisados.unshift({...r});
+  reportes.splice(i,1);
+
+  renderPublicProfiles();
+  renderAdmin();
+  saveSession();
+
+  toast('Reporte confirmado y reputación actualizada.');
+}
+
+function rechazar(i){
+  const r = reportes[i];
+  if(!r) return;
+
+  r.estado = 'Rechazado';
+  r.ia = 'Se detectó evidencia insuficiente o inconsistencias';
+
+  applyReviewToProfile(r, false, false);
+
+  revisados.unshift({...r});
+  reportes.splice(i,1);
+
+  renderPublicProfiles();
+  renderAdmin();
+  saveSession();
+
+  toast('Reporte rechazado y movido a revisados.');
+}
+
+function resolverIA(){
+  if(!reportes.length){
+    toast('No hay pendientes para resolver.');
+    return;
+  }
+
+  const batch = [...reportes];
+  batch.forEach((r, idx) => {
+    const approved = idx % 3 !== 1;
+    r.estado = approved ? 'IA Confirmado' : 'IA Rechazado';
+    r.ia = approved
+      ? 'Motor de IA: patrón consistente y señales coincidentes'
+      : 'Motor de IA: evidencia insuficiente o inconsistente';
+
+    applyReviewToProfile(r, approved, true);
+    revisados.unshift({...r});
+  });
+
+  reportes = [];
+  renderPublicProfiles();
+  renderAdmin();
+  saveSession();
+
+  toast('La IA resolvió todos los pendientes de la bandeja.');
+}
+
+function seedAdminReports(){
+  const seeds = [
+    {
+      targetKey:'discord:darktrade#2210',
+      usuario:'darktrade#2210',
+      tipo:'Discord',
+      motivo:'Spam',
+      desc:'Envió invitaciones sospechosas y redireccionó a links externos varias veces.',
+      evidencia:'Adjunta',
+      estado:'Pendiente',
+      ia:'Pendiente de análisis automático',
+      fecha:new Date().toLocaleString('es-AR')
+    },
+    {
+      targetKey:'telegram:@marketdrops',
+      usuario:'@marketdrops',
+      tipo:'Telegram',
+      motivo:'Estafa',
+      desc:'Prometió una venta y luego eliminó mensajes con información contradictoria.',
+      evidencia:'Adjunta',
+      estado:'Pendiente',
+      ia:'Pendiente de análisis automático',
+      fecha:new Date().toLocaleString('es-AR')
+    },
+    {
+      targetKey:'email:user_spam@email.com',
+      usuario:'user_spam@email.com',
+      tipo:'Email',
+      motivo:'Spam',
+      desc:'Llegaron correos repetidos con asunto cambiante y enlaces de seguimiento.',
+      evidencia:'Sin adjunto',
+      estado:'Pendiente',
+      ia:'Pendiente de análisis automático',
+      fecha:new Date().toLocaleString('es-AR')
+    }
+  ];
+
+  reportes = [...seeds, ...reportes];
+  totalReportsBase += seeds.length;
+
+  renderAdmin();
+  saveSession();
+
+  toast('Se cargaron reportes demo para la presentación.');
+}
+
+function renderAdmin(){
+  document.getElementById('statUsers').textContent = totalUsersBase;
+  document.getElementById('statSearch').textContent = totalSearchBase;
+  document.getElementById('statReports').textContent = totalReportsBase;
+  document.getElementById('statRisky').textContent = totalRiskyBase;
+
+  renderTrustedHelpers();
+
+  const reportesBox = document.getElementById('reportes');
+  const reviewedBox = document.getElementById('reviewed');
+
+  if(!reportes.length){
+    reportesBox.innerHTML = '<div class="empty">No hay reportes pendientes. Podés cargar datos demo o enviar reportes desde el análisis.</div>';
+  }else{
+    reportesBox.innerHTML = reportes.map((r,i) => `
+      <div class="itemCard">
+        <div class="itemTop">
+          <div>
+            <strong>${r.usuario}</strong>
+            <div class="itemMeta">${r.tipo} · ${r.fecha}</div>
+          </div>
+          <span class="reputationBadge badgeYellow">${r.estado}</span>
+        </div>
+        <div class="statusLine"><b>Motivo:</b> ${r.motivo}</div>
+        <div class="statusLine"><b>Descripción:</b> ${r.desc}</div>
+        <div class="statusLine"><b>Evidencia:</b> ${r.evidencia}</div>
+        <div class="statusLine"><b>IA:</b> ${r.ia}</div>
+        <div class="adminActions">
+          <button class="btn" onclick="aprobar(${i})">Confirmar</button>
+          <button class="btn btnDanger" onclick="rechazar(${i})">Rechazar</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  if(!revisados.length){
+    reviewedBox.innerHTML = '<div class="empty">Todavía no hay reportes revisados.</div>';
+  }else{
+    reviewedBox.innerHTML = revisados.map(r => `
+      <div class="itemCard resolved">
+        <div class="itemTop">
+          <div>
+            <strong>${r.usuario}</strong>
+            <div class="itemMeta">${r.tipo} · ${r.fecha || 'Revisión interna'}</div>
+          </div>
+          <span class="reputationBadge ${r.estado.includes('Confirmado') ? 'badgeRed' : 'badgeGreen'}">${r.estado}</span>
+        </div>
+        <div class="statusLine"><b>Motivo:</b> ${r.motivo}</div>
+        <div class="statusLine"><b>IA:</b> ${r.ia}</div>
+      </div>
+    `).join('');
+  }
+}
+
+loadSession();
+updatePlaceholder();
+updateFileLabel();
+
+if(currentUser){
+  document.getElementById('dashboard').classList.remove('hidden');
+  document.getElementById('analizar').classList.remove('hidden');
+  document.getElementById('historySection').classList.remove('hidden');
+  document.getElementById('publicSection').classList.remove('hidden');
+  updateDashboard();
+  renderHistory();
+  renderPublicProfiles();
+}
+
+if(reportes.length || revisados.length){
+  document.getElementById('adminPanel').classList.remove('hidden');
+  renderAdmin();
+}
+</script>
+</body>
+</html>
