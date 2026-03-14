@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SafeLink v5</title>
+<title>SafeLink v5.1</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -17,30 +17,41 @@
   --blue:#4f8cff;
   --blue-2:#78a7ff;
   --green:#22c55e;
-  --yellow:#f59e0b;
+  --yellow:#f6c343;
+  --yellow-2:#f59e0b;
   --red:#ef4444;
   --gray:#64748b;
   --shadow:0 16px 40px rgba(0,0,0,.35);
 }
-
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-
 body{
   margin:0;
   font-family:Inter,system-ui,sans-serif;
   color:var(--text);
   background:
     radial-gradient(circle at top left, rgba(79,140,255,.16), transparent 30%),
-    radial-gradient(circle at 85% 10%, rgba(120,167,255,.12), transparent 24%),
-    linear-gradient(180deg,#06101d 0%,#091425 45%,#08111e 100%);
+    radial-gradient(circle at 85% 10%, rgba(246,195,67,.14), transparent 22%),
+    radial-gradient(circle at 20% 70%, rgba(246,195,67,.08), transparent 18%),
+    linear-gradient(180deg,#06101d 0%,#0a1528 45%,#0a1321 100%);
+  position:relative;
 }
-
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.08;
+  background-image:
+    linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size:32px 32px;
+  mask-image:linear-gradient(180deg, rgba(0,0,0,.9), rgba(0,0,0,.15));
+}
 a{color:inherit;text-decoration:none}
 .hidden{display:none !important}
-
 .container{max-width:1180px;margin:0 auto;padding:0 28px}
-.section{padding:84px 0}
+.section{padding:84px 0;position:relative}
 .title{font-size:40px;line-height:1.05;margin:0 0 18px;font-weight:800;letter-spacing:-.03em}
 .subtitle{font-size:16px;line-height:1.7;color:var(--muted);max-width:720px}
 
@@ -52,262 +63,133 @@ a{color:inherit;text-decoration:none}
   background:rgba(5,12,24,.72);
   border-bottom:1px solid rgba(255,255,255,.06);
 }
-
-.navInner{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:18px 0;
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  font-weight:800;
-  font-size:22px;
-  color:#8fc1ff;
-}
-
+.navInner{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:22px;color:#8fc1ff}
 .logoMark{
-  width:34px;
-  height:34px;
-  border-radius:10px;
-  position:relative;
+  width:34px;height:34px;border-radius:10px;position:relative;
   background:linear-gradient(180deg,#59a2ff,#357dff);
-  box-shadow:0 10px 25px rgba(79,140,255,.35), inset 0 1px 0 rgba(255,255,255,.28);
+  box-shadow:0 10px 25px rgba(79,140,255,.35), inset 0 1px 0 rgba(255,255,255,.28)
 }
 .logoMark:before{
-  content:"";
-  position:absolute;
-  left:8px;
-  top:8px;
-  width:18px;
-  height:18px;
-  border:2px solid white;
-  border-radius:6px;
-  opacity:.95;
+  content:"";position:absolute;left:8px;top:8px;width:18px;height:18px;border:2px solid white;border-radius:6px;opacity:.95
 }
 .logoMark:after{
-  content:"";
-  position:absolute;
-  left:12px;
-  top:14px;
-  width:9px;
-  height:5px;
-  border-left:2px solid white;
-  border-bottom:2px solid white;
-  transform:rotate(-45deg);
+  content:"";position:absolute;left:12px;top:14px;width:9px;height:5px;border-left:2px solid white;border-bottom:2px solid white;transform:rotate(-45deg)
 }
-
-.navLinks{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
+.navLinks{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .navLinks a,.navLinks button{
-  border:0;
-  background:transparent;
-  color:#d6e4ff;
-  padding:10px 14px;
-  border-radius:12px;
-  cursor:pointer;
-  font:inherit;
+  border:0;background:transparent;color:#d6e4ff;padding:10px 14px;border-radius:12px;cursor:pointer;font:inherit
 }
 .navLinks a:hover,.navLinks button:hover{background:rgba(255,255,255,.05)}
+.pill{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03)!important}
 
-.pill{
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(255,255,255,.03) !important;
+.hero{padding:88px 0 60px;position:relative}
+.hero:after{
+  content:"";
+  position:absolute;
+  right:5%; top:24px;
+  width:280px; height:280px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(246,195,67,.16), transparent 65%);
+  filter:blur(6px);
 }
-
-.hero{padding:88px 0 60px}
-
-.heroGrid{
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:28px;
-  align-items:center;
-}
-
+.heroGrid{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
 .heroCard,.glass{
   background:linear-gradient(180deg,rgba(14,28,52,.88),rgba(9,20,38,.9));
   border:1px solid rgba(255,255,255,.08);
-  box-shadow:var(--shadow);
-  border-radius:28px;
+  box-shadow:var(--shadow);border-radius:28px
 }
-
-.heroCard{padding:38px}
-
+.heroCard{padding:38px;position:relative;overflow:hidden}
+.heroCard:before{
+  content:"";
+  position:absolute;
+  inset:auto -20% -40% auto;
+  width:300px;height:300px;
+  background:radial-gradient(circle, rgba(246,195,67,.12), transparent 65%);
+  transform:translate(20px,20px);
+}
 .badge{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:8px 12px;
-  border-radius:999px;
-  background:rgba(79,140,255,.12);
-  color:#b8d2ff;
-  border:1px solid rgba(79,140,255,.2);
-  font-size:13px;
-  margin-bottom:16px;
+  display:inline-flex;align-items:center;gap:10px;padding:8px 12px;border-radius:999px;
+  background:rgba(79,140,255,.12);color:#b8d2ff;border:1px solid rgba(79,140,255,.2);font-size:13px;margin-bottom:16px
 }
-
-.ctaRow{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:22px;
-}
-
+.ctaRow{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
 .btn{
-  border:0;
-  cursor:pointer;
-  border-radius:14px;
-  padding:12px 18px;
-  font:600 14px Inter,sans-serif;
-  transition:.2s ease;
-  color:white;
-  background:linear-gradient(180deg,#5b99ff,#3d7dff);
-  box-shadow:0 10px 24px rgba(79,140,255,.28);
+  border:0;cursor:pointer;border-radius:14px;padding:12px 18px;font:600 14px Inter,sans-serif;transition:.2s ease;
+  color:white;background:linear-gradient(180deg,#5b99ff,#3d7dff);box-shadow:0 10px 24px rgba(79,140,255,.28)
 }
 .btn:hover{transform:translateY(-1px);filter:brightness(1.04)}
-
 .btnSecondary{
-  background:rgba(255,255,255,.04);
-  box-shadow:none;
-  border:1px solid rgba(255,255,255,.08);
-  color:#e6efff;
+  background:linear-gradient(180deg, rgba(246,195,67,.18), rgba(246,195,67,.10));
+  box-shadow:none;border:1px solid rgba(246,195,67,.22);color:#fff2c8
 }
+.btnDanger{background:linear-gradient(180deg,#ff7171,#ef4444);box-shadow:0 10px 24px rgba(239,68,68,.22)}
+.btnGhost{background:rgba(255,255,255,.06);box-shadow:none;border:1px solid rgba(255,255,255,.08)}
 
-.btnDanger{
-  background:linear-gradient(180deg,#ff7171,#ef4444);
-  box-shadow:0 10px 24px rgba(239,68,68,.22);
+.heroPreview{padding:24px;position:relative;overflow:hidden}
+.heroPreview:before{
+  content:"";
+  position:absolute;
+  inset:-30% auto auto -10%;
+  width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle, rgba(246,195,67,.16), transparent 65%);
 }
+.miniGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.miniCard{padding:18px;border-radius:20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07)}
+.miniCard h4{margin:0 0 10px;font-size:14px;color:#cfe0ff}
+.bigNumber{font-size:30px;font-weight:800;letter-spacing:-.03em}
 
-.btnGhost{
-  background:rgba(255,255,255,.06);
-  box-shadow:none;
-  border:1px solid rgba(255,255,255,.08);
-}
-
-.heroPreview{padding:24px}
-
-.miniGrid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
-}
-
-.miniCard{
-  padding:18px;
-  border-radius:20px;
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(255,255,255,.07);
-}
-
-.miniCard h4{
-  margin:0 0 10px;
-  font-size:14px;
-  color:#cfe0ff;
-}
-
-.bigNumber{
-  font-size:30px;
-  font-weight:800;
-  letter-spacing:-.03em;
-}
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-  margin-top:22px;
-}
-
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
 .card{
   background:linear-gradient(180deg,rgba(14,28,52,.9),rgba(10,20,39,.9));
   border:1px solid rgba(255,255,255,.08);
-  border-radius:22px;
-  padding:24px;
-  box-shadow:var(--shadow);
+  border-radius:22px;padding:24px;box-shadow:var(--shadow);position:relative;overflow:hidden
 }
-
+.card:before{
+  content:"";
+  position:absolute;
+  inset:0 0 auto 0;
+  height:2px;
+  background:linear-gradient(90deg, transparent, rgba(246,195,67,.85), transparent);
+}
 .card h3{margin:0 0 10px;font-size:19px}
 .card p{margin:0;color:var(--muted);line-height:1.6}
-
 .planPrice{font-size:34px;font-weight:800;margin:10px 0 8px}
-
 .list{display:grid;gap:10px;margin-top:18px}
 .listItem{display:flex;gap:10px;color:#dce8ff;font-size:14px}
-.listItem:before{content:"•";color:#7eb0ff}
+.listItem:before{content:"•";color:var(--yellow)}
 
 .panel{
   background:linear-gradient(180deg,rgba(14,28,52,.92),rgba(9,19,37,.95));
   border:1px solid rgba(255,255,255,.08);
-  border-radius:24px;
-  padding:26px;
-  box-shadow:var(--shadow);
+  border-radius:24px;padding:26px;box-shadow:var(--shadow);position:relative;overflow:hidden
+}
+.panel:before{
+  content:"";
+  position:absolute;
+  right:-60px; top:-60px;
+  width:180px; height:180px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(246,195,67,.08), transparent 70%);
 }
 
-.authWrap{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-}
-
-.inputGroup{
-  display:grid;
-  gap:8px;
-  margin-top:16px;
-}
-
-.label{
-  font-size:13px;
-  color:#bdd1f7;
-}
-
+.authWrap{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.inputGroup{display:grid;gap:8px;margin-top:16px}
+.label{font-size:13px;color:#bdd1f7}
 .field,textarea,select{
-  width:100%;
-  font:500 14px Inter,sans-serif;
-  color:white;
-  outline:none;
-  background:#0a1530;
-  border:1px solid #213457;
-  border-radius:14px;
-  padding:13px 14px;
-  transition:.2s ease;
+  width:100%;font:500 14px Inter,sans-serif;color:white;outline:none;
+  background:#0a1530;border:1px solid #213457;border-radius:14px;padding:13px 14px;transition:.2s ease
 }
-
-.field:focus,textarea:focus,select:focus{
-  border-color:#4f8cff;
-  box-shadow:0 0 0 4px rgba(79,140,255,.12);
-}
-
-textarea{
-  resize:vertical;
-  min-height:104px;
-}
+.field:focus,textarea:focus,select:focus{border-color:#4f8cff;box-shadow:0 0 0 4px rgba(79,140,255,.12)}
+textarea{resize:vertical;min-height:104px}
 
 .selectWrap{position:relative}
 .selectWrap:after{
-  content:"⌄";
-  position:absolute;
-  right:14px;
-  top:50%;
-  transform:translateY(-50%);
-  pointer-events:none;
-  color:#9eb8ea;
-  font-size:18px;
+  content:"⌄";position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  pointer-events:none;color:#9eb8ea;font-size:18px
 }
-
 select{
-  appearance:none;
-  -webkit-appearance:none;
-  -moz-appearance:none;
-  padding-right:40px;
-  background-image:none;
+  appearance:none;-webkit-appearance:none;-moz-appearance:none;
+  padding-right:40px;background-image:none
 }
 
 .fileUpload{
@@ -318,279 +200,114 @@ select{
   background:linear-gradient(180deg,rgba(79,140,255,.07),rgba(255,255,255,.02));
 }
 .fileUpload input[type="file"]{
-  position:absolute;
-  inset:0;
-  opacity:0;
-  cursor:pointer;
+  position:absolute;inset:0;opacity:0;cursor:pointer
 }
 .fileUploadInner{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px
 }
-.fileUploadLeft{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
+.fileUploadLeft{display:flex;align-items:center;gap:12px}
 .fileChip{
-  width:42px;
-  height:42px;
-  border-radius:14px;
-  background:linear-gradient(180deg,#5b99ff,#3d7dff);
-  display:grid;
-  place-items:center;
-  font-size:18px;
-  box-shadow:0 10px 24px rgba(79,140,255,.2);
+  width:42px;height:42px;border-radius:14px;
+  background:linear-gradient(180deg,#f6c343,#f59e0b);
+  color:#1b1200;
+  display:grid;place-items:center;font-size:18px;font-weight:700;
+  box-shadow:0 10px 24px rgba(246,195,67,.2)
 }
 .fileTitle{font-size:14px;font-weight:600}
 .fileSub{font-size:12px;color:#92a7cc;margin-top:3px}
 .filePill{
-  font-size:12px;
-  color:#dcebff;
-  padding:8px 12px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(255,255,255,.04);
+  font-size:12px;color:#fff3d3;padding:8px 12px;border-radius:999px;
+  border:1px solid rgba(246,195,67,.18);background:rgba(246,195,67,.08)
 }
 
-.authHint{
-  margin-top:14px;
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.65;
-}
+.authHint{margin-top:14px;color:var(--muted);font-size:13px;line-height:1.65}
 
-.statsGrid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-}
-
+.statsGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .statBox{
-  padding:18px;
-  border-radius:20px;
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(255,255,255,.07);
+  padding:18px;border-radius:20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+  position:relative;overflow:hidden
 }
-
-.statLabel{
-  font-size:12px;
-  color:#a8bddf;
-  margin-bottom:8px;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-}
-
-.statValue{
-  font-size:28px;
-  font-weight:800;
-  letter-spacing:-.03em;
-}
-
-.analysisGrid{
-  display:grid;
-  grid-template-columns:1.15fr .85fr;
-  gap:18px;
-  margin-top:20px;
-}
-
-.resultHeader{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:flex-start;
-  flex-wrap:wrap;
-}
-
-.profileTag{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 12px;
-  border-radius:999px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.08);
-  font-size:13px;
-  color:#d8e6ff;
-}
-
-.scoreRing{
-  width:124px;
-  height:124px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  font-weight:800;
-  font-size:28px;
-  position:relative;
-}
-.scoreRing:before{
+.statBox:after{
   content:"";
   position:absolute;
-  inset:10px;
-  border-radius:50%;
-  background:#0b1730;
-  border:1px solid rgba(255,255,255,.06);
+  left:0; right:0; top:0;
+  height:2px;
+  background:linear-gradient(90deg, transparent, rgba(246,195,67,.85), transparent);
+}
+.statLabel{font-size:12px;color:#a8bddf;margin-bottom:8px;text-transform:uppercase;letter-spacing:.08em}
+.statValue{font-size:28px;font-weight:800;letter-spacing:-.03em}
+
+.verifyPills{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+
+.analysisGrid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-top:20px}
+.resultHeader{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.profileTag{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);font-size:13px;color:#d8e6ff
+}
+.scoreRing{
+  width:124px;height:124px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:28px;position:relative
+}
+.scoreRing:before{
+  content:"";position:absolute;inset:10px;border-radius:50%;background:#0b1730;border:1px solid rgba(255,255,255,.06)
 }
 .scoreRing span{position:relative;z-index:1}
 
-.kpiList{
-  display:grid;
-  gap:12px;
-  margin-top:18px;
-}
-
-.kpiRow{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  padding:14px 0;
-  border-bottom:1px solid rgba(255,255,255,.07);
-}
+.kpiList{display:grid;gap:12px;margin-top:18px}
+.kpiRow{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.07)}
 .kpiRow:last-child{border-bottom:0}
+.progress{height:8px;background:#132442;border-radius:999px;overflow:hidden;margin-top:8px}
+.progress > i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#f6c343,#4f8cff)}
 
-.progress{
-  height:8px;
-  background:#132442;
-  border-radius:999px;
-  overflow:hidden;
-  margin-top:8px;
-}
-.progress > i{
-  display:block;
-  height:100%;
-  border-radius:999px;
-  background:linear-gradient(90deg,#7ab1ff,#4f8cff);
-}
-
-.reportBox{
-  margin-top:22px;
-  padding-top:22px;
-  border-top:1px solid rgba(255,255,255,.08);
-}
-
+.reportBox{margin-top:22px;padding-top:22px;border-top:1px solid rgba(255,255,255,.08)}
 .fileNote{font-size:12px;color:#8ea4cd;margin-top:8px}
 
 .historyList,.publicList,.adminList,.reviewList,.helpersList{
-  display:grid;
-  gap:14px;
-  margin-top:18px;
+  display:grid;gap:14px;margin-top:18px
 }
-
 .itemCard{
-  padding:18px;
-  border-radius:18px;
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(255,255,255,.07);
+  padding:18px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+  position:relative;overflow:hidden
+}
+.itemCard:before{
+  content:"";
+  position:absolute;
+  inset:0 0 auto 0;
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(246,195,67,.75), transparent);
+}
+.itemTop{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.itemMeta{font-size:13px;color:#9cb0d5}
+
+.reputationBadge{padding:7px 10px;border-radius:999px;font-size:12px;font-weight:700}
+.badgeGreen{background:rgba(34,197,94,.12);color:#7ee0a0;border:1px solid rgba(34,197,94,.22)}
+.badgeYellow{background:rgba(245,158,11,.12);color:#ffd48a;border:1px solid rgba(245,158,11,.24)}
+.badgeRed{background:rgba(239,68,68,.12);color:#ff9f9f;border:1px solid rgba(239,68,68,.25)}
+.badgeBlue{background:rgba(79,140,255,.12);color:#bbd4ff;border:1px solid rgba(79,140,255,.22)}
+
+.adminColumns{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:20px}
+.adminActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.statusLine{margin-top:10px;font-size:12px;color:#9eb0cf}
+.resolved{opacity:.62;filter:saturate(.7)}
+
+.upgradeCard{
+  margin-top:18px;
+  padding:20px;
+  border-radius:22px;
+  border:1px solid rgba(246,195,67,.18);
+  background:linear-gradient(180deg, rgba(246,195,67,.10), rgba(246,195,67,.04));
 }
 
-.itemTop{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:flex-start;
-  flex-wrap:wrap;
-}
-
-.itemMeta{
-  font-size:13px;
-  color:#9cb0d5;
-}
-
-.reputationBadge{
-  padding:7px 10px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:700;
-}
-
-.badgeGreen{
-  background:rgba(34,197,94,.12);
-  color:#7ee0a0;
-  border:1px solid rgba(34,197,94,.22);
-}
-
-.badgeYellow{
-  background:rgba(245,158,11,.12);
-  color:#ffd48a;
-  border:1px solid rgba(245,158,11,.24);
-}
-
-.badgeRed{
-  background:rgba(239,68,68,.12);
-  color:#ff9f9f;
-  border:1px solid rgba(239,68,68,.25);
-}
-
-.badgeBlue{
-  background:rgba(79,140,255,.12);
-  color:#bbd4ff;
-  border:1px solid rgba(79,140,255,.22);
-}
-
-.adminColumns{
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:18px;
-  margin-top:20px;
-}
-
-.adminActions{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:14px;
-}
-
-.statusLine{
-  margin-top:10px;
-  font-size:12px;
-  color:#9eb0cf;
-}
-
-.resolved{
-  opacity:.62;
-  filter:saturate(.7);
-}
-
-.footer{
-  padding:48px 0 70px;
-  color:#7f93ba;
-  text-align:center;
-}
-
+.footer{padding:48px 0 70px;color:#7f93ba;text-align:center}
 .toast{
-  position:fixed;
-  left:50%;
-  bottom:24px;
-  transform:translateX(-50%) translateY(20px);
-  background:#102244;
-  border:1px solid rgba(255,255,255,.08);
-  box-shadow:var(--shadow);
-  padding:14px 18px;
-  border-radius:14px;
-  color:white;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s ease;
-  z-index:60;
+  position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);
+  background:#102244;border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow);
+  padding:14px 18px;border-radius:14px;color:white;opacity:0;pointer-events:none;transition:.3s ease;z-index:60
 }
-
-.toast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
-}
-
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .empty{
-  color:#8ca0c7;
-  font-size:14px;
-  padding:22px;
-  border:1px dashed rgba(255,255,255,.12);
-  border-radius:18px;
-  text-align:center;
-  background:rgba(255,255,255,.02);
+  color:#8ca0c7;font-size:14px;padding:22px;border:1px dashed rgba(255,255,255,.12);
+  border-radius:18px;text-align:center;background:rgba(255,255,255,.02)
 }
 
 @media (max-width:980px){
@@ -804,6 +521,8 @@ select{
           <div class="statValue" id="dashState">Activa</div>
         </div>
       </div>
+
+      <div class="verifyPills" id="verifyPills"></div>
     </div>
   </section>
 
@@ -835,6 +554,19 @@ select{
         </div>
 
         <p class="authHint" id="limitText">Cuenta free: 5 búsquedas disponibles para la demo.</p>
+
+        <div class="upgradeCard hidden" id="upgradeCard">
+          <div class="resultHeader">
+            <div>
+              <h3 style="margin:0 0 6px">Límite alcanzado</h3>
+              <div class="itemMeta">La demo ahora simula el paso al plan Pro para seguir analizando perfiles sin límite.</div>
+            </div>
+            <span class="reputationBadge badgeYellow">Upgrade recomendado</span>
+          </div>
+          <div class="ctaRow" style="margin-top:14px">
+            <button class="btn btnSecondary" onclick="simularUpgrade()">Pasar a Pro</button>
+          </div>
+        </div>
 
         <div class="analysisGrid hidden" id="resultadoWrap">
           <div class="panel" style="padding:22px">
@@ -927,6 +659,18 @@ select{
         Estos perfiles persisten durante la sesión y acumulan reputación y reportes revisados. Sirven para mostrar cómo SafeLink publicaría fichas resumidas con estado y trazabilidad.
       </p>
       <div class="publicList" id="publicList"></div>
+
+      <div class="panel hidden" id="publicProfilePanel" style="margin-top:18px">
+        <div class="resultHeader">
+          <div>
+            <div class="profileTag" id="publicProfileType">Perfil público</div>
+            <h3 style="font-size:28px;margin:14px 0 6px" id="publicProfileName">—</h3>
+            <div class="itemMeta" id="publicProfileMeta">Sin perfil seleccionado</div>
+          </div>
+          <div class="scoreRing" id="publicScoreRing"><span id="publicRep">0</span></div>
+        </div>
+        <div class="kpiList" id="publicProfileStats"></div>
+      </div>
     </div>
   </section>
 
@@ -990,13 +734,12 @@ select{
   <div class="toast" id="toast"></div>
 
   <div class="footer">
-    <div class="container">SafeLink v5 · Prototipo de reputación y verificación digital</div>
+    <div class="container">SafeLink v5.1 · Prototipo de reputación y verificación digital</div>
   </div>
 
 <script>
 let currentUser = null;
 let currentTargetKey = null;
-let currentTargetType = null;
 let searchCount = 0;
 let searchHistory = [];
 let reportes = [];
@@ -1116,7 +859,6 @@ function saveSession(){
   sessionStorage.setItem('safelink_state', JSON.stringify({
     currentUser,
     currentTargetKey,
-    currentTargetType,
     searchCount,
     searchHistory,
     reportes,
@@ -1136,7 +878,6 @@ function loadSession(){
     const data = JSON.parse(raw);
     currentUser = data.currentUser || null;
     currentTargetKey = data.currentTargetKey || null;
-    currentTargetType = data.currentTargetType || null;
     searchCount = data.searchCount || 0;
     searchHistory = data.searchHistory || [];
     reportes = data.reportes || [];
@@ -1145,11 +886,8 @@ function loadSession(){
     totalUsersBase = data.totalUsersBase || totalUsersBase;
     totalRiskyBase = data.totalRiskyBase || totalRiskyBase;
     totalReportsBase = data.totalReportsBase || totalReportsBase;
-
     if(data.fakeProfiles){
-      Object.keys(data.fakeProfiles).forEach(k => {
-        fakeProfiles[k] = data.fakeProfiles[k];
-      });
+      Object.keys(data.fakeProfiles).forEach(k => fakeProfiles[k] = data.fakeProfiles[k]);
     }
   }catch(e){}
 }
@@ -1192,26 +930,21 @@ function loginUser(){
     toast('Completá email, contraseña, teléfono y DNI.');
     return;
   }
-
   if(!/^.+@.+\..+$/.test(email)){
     toast('Ingresá un email válido para la demo.');
     return;
   }
-
   if(!/^\+?[0-9]{8,15}$/.test(phone)){
     toast('Ingresá un teléfono válido para la demo.');
     return;
   }
-
   if(!/^\d{7,9}$/.test(dni)){
     toast('Ingresá un DNI válido para la demo.');
     return;
   }
 
   currentUser = {
-    email,
-    phone,
-    dni,
+    email, phone, dni,
     plan:'Free',
     verifiedEmail:true,
     verifiedPhone:true,
@@ -1225,6 +958,7 @@ function loginUser(){
   document.getElementById('publicSection').classList.remove('hidden');
 
   updateDashboard();
+  renderVerificationPills();
   renderHistory();
   renderPublicProfiles();
   saveSession();
@@ -1248,17 +982,52 @@ function loginAdmin(){
   toast('Panel de moderación habilitado.');
 }
 
+function renderVerificationPills(){
+  const box = document.getElementById('verifyPills');
+  if(!currentUser || !box) return;
+
+  box.innerHTML = `
+    <span class="reputationBadge badgeGreen">Email verificado</span>
+    <span class="reputationBadge badgeGreen">Teléfono verificado</span>
+    <span class="reputationBadge badgeGreen">DNI verificado</span>
+    <span class="reputationBadge badgeBlue">Usuario autenticado</span>
+  `;
+}
+
 function updateDashboard(){
   if(!currentUser) return;
 
   document.getElementById('dashPlan').textContent = currentUser.plan;
-  document.getElementById('dashUsed').textContent = searchCount;
+  document.getElementById('dashUsed').textContent = currentUser.plan === 'Pro' ? `${searchCount}` : `${searchCount}`;
   document.getElementById('dashReports').textContent = currentUser.reportsSent || 0;
-  document.getElementById('dashState').textContent = searchCount >= 5 ? 'Límite free alcanzado' : 'Activa';
+  document.getElementById('dashState').textContent =
+    currentUser.plan === 'Pro'
+      ? 'Pro activa'
+      : searchCount >= 5
+        ? 'Límite free alcanzado'
+        : 'Activa';
 
-  document.getElementById('limitText').textContent = searchCount >= 5
-    ? 'Límite free alcanzado. Para seguir, la demo simula que debés pasar al plan Pro.'
-    : `Cuenta free: ${5 - searchCount} búsquedas disponibles para la demo.`;
+  const limitText = document.getElementById('limitText');
+  const upgradeCard = document.getElementById('upgradeCard');
+
+  if(currentUser.plan === 'Pro'){
+    limitText.textContent = 'Plan Pro activo: búsquedas ilimitadas habilitadas en la demo.';
+    upgradeCard.classList.add('hidden');
+  }else if(searchCount >= 5){
+    limitText.textContent = 'Límite free alcanzado. La demo ahora simula que debés pasar al plan Pro.';
+    upgradeCard.classList.remove('hidden');
+  }else{
+    limitText.textContent = `Cuenta free: ${5 - searchCount} búsquedas disponibles para la demo.`;
+    upgradeCard.classList.add('hidden');
+  }
+}
+
+function simularUpgrade(){
+  if(!currentUser) return;
+  currentUser.plan = 'Pro';
+  updateDashboard();
+  saveSession();
+  toast('Upgrade simulado: ahora tu cuenta es Pro.');
 }
 
 function updatePlaceholder(){
@@ -1275,7 +1044,6 @@ function updatePlaceholder(){
 function fillSearchDemo(){
   const tipo = document.getElementById('tipo').value;
   const input = document.getElementById('query');
-
   const examples = {
     discord:'gamerwolf#7712',
     whatsapp:'+5491122334455',
@@ -1283,7 +1051,6 @@ function fillSearchDemo(){
     steam:'steamcommunity/id/player',
     telegram:'@marketdrops'
   };
-
   input.value = examples[tipo];
 }
 
@@ -1297,13 +1064,7 @@ function validarFormato(tipo, texto){
 }
 
 function mapTypeLabel(type){
-  return ({
-    discord:'Discord',
-    whatsapp:'WhatsApp',
-    email:'Email',
-    steam:'Steam',
-    telegram:'Telegram'
-  })[type] || type;
+  return ({discord:'Discord', whatsapp:'WhatsApp', email:'Email', steam:'Steam', telegram:'Telegram'})[type] || type;
 }
 
 function getProfileKey(type, raw){
@@ -1339,8 +1100,9 @@ function analyzeLevel(rep){
   return {text:'Riesgo alto', color:'var(--red)', badge:'badgeRed'};
 }
 
-function renderScore(rep){
-  const ring = document.getElementById('scoreRing');
+function setRing(id, rep){
+  const ring = document.getElementById(id);
+  if(!ring) return;
   const deg = Math.max(18, Math.min(360, rep * 3.6));
   ring.style.background = `conic-gradient(#4f8cff ${deg}deg, rgba(255,255,255,.08) ${deg}deg)`;
 }
@@ -1381,8 +1143,9 @@ function analizar(){
     return;
   }
 
-  if(searchCount >= 5 && currentUser.plan === 'Free'){
-    toast('Límite free alcanzado. La demo ahora simula que necesitás el plan Pro.');
+  if(currentUser.plan === 'Free' && searchCount >= 5){
+    updateDashboard();
+    toast('Llegaste al límite free. La demo muestra el upgrade a Pro.');
     return;
   }
 
@@ -1396,7 +1159,6 @@ function analizar(){
 
   const key = getProfileKey(tipo, raw);
   currentTargetKey = key;
-  currentTargetType = tipo;
 
   const profile = fakeProfiles[key] || createGeneratedProfile(key, raw, tipo);
   const state = analyzeLevel(profile.reputation);
@@ -1418,13 +1180,12 @@ function analizar(){
   document.getElementById('resultName').textContent = profile.display;
   document.getElementById('resultMeta').textContent =
     `Antigüedad estimada: ${profile.age} · Reportes confirmados: ${profile.confirmedReports} · Reportes rechazados: ${profile.rejectedReports}`;
-
   document.getElementById('rep').textContent = profile.reputation;
   document.getElementById('risk').textContent = state.text;
   document.getElementById('risk').style.color = state.color;
   document.getElementById('riskBadge').innerHTML = `<span class="reputationBadge ${state.badge}">${state.text}</span>`;
 
-  renderScore(profile.reputation);
+  setRing('scoreRing', profile.reputation);
   renderStats(profile);
   renderSignals(profile);
   renderHistory();
@@ -1515,6 +1276,36 @@ function renderHistory(){
   `).join('');
 }
 
+function showPublicProfile(key){
+  const p = fakeProfiles[key];
+  if(!p) return;
+
+  const state = analyzeLevel(p.reputation);
+  document.getElementById('publicProfilePanel').classList.remove('hidden');
+  document.getElementById('publicProfileType').textContent = `${p.type} · Perfil público`;
+  document.getElementById('publicProfileName').textContent = p.display;
+  document.getElementById('publicProfileMeta').textContent =
+    `Antigüedad: ${p.age} · Confirmados: ${p.confirmedReports} · Rechazados: ${p.rejectedReports} · Foros: ${p.forumMatches}`;
+  document.getElementById('publicRep').textContent = p.reputation;
+  setRing('publicScoreRing', p.reputation);
+
+  const rows = [
+    ['Estado general', state.text, p.reputation],
+    ['Patrón sospechoso', `${p.suspicious}%`, p.suspicious],
+    ['Reportes confirmados', `${p.confirmedReports}`, Math.min(100, p.confirmedReports*12)],
+    ['Reportes rechazados', `${p.rejectedReports}`, Math.min(100, p.rejectedReports*14)]
+  ];
+
+  document.getElementById('publicProfileStats').innerHTML = rows.map(r => `
+    <div>
+      <div class="kpiRow"><span>${r[0]}</span><strong>${r[1]}</strong></div>
+      <div class="progress"><i style="width:${r[2]}%"></i></div>
+    </div>
+  `).join('');
+
+  scrollToId('publicProfilePanel');
+}
+
 function renderPublicProfiles(){
   const box = document.getElementById('publicList');
   const keys = Object.keys(fakeProfiles);
@@ -1538,6 +1329,9 @@ function renderPublicProfiles(){
           <span class="reputationBadge ${state.badge}">${p.reputation}/100</span>
         </div>
         <div class="statusLine">Reportes confirmados: ${p.confirmedReports} · Reportes rechazados: ${p.rejectedReports} · Foros: ${p.forumMatches}</div>
+        <div class="adminActions">
+          <button class="btn btnGhost" onclick="showPublicProfile('${key.replace(/'/g, "\\'")}')">Ver ficha pública</button>
+        </div>
       </div>
     `;
   }).join('');
@@ -1578,9 +1372,7 @@ function applyReviewToProfile(reporte, approved, autoIA){
     p.notes.unshift('Se rechazó un reporte y no se aplicó penalización real.');
   }
 
-  const newState = analyzeLevel(p.reputation).text;
-  p.level = newState;
-
+  p.level = analyzeLevel(p.reputation).text;
   if(p.reputation < 40) totalRiskyBase += 1;
 }
 
@@ -1592,14 +1384,12 @@ function aprobar(i){
   r.ia = 'Análisis + revisión humana: coherencia alta';
 
   applyReviewToProfile(r, true, false);
-
   revisados.unshift({...r});
   reportes.splice(i,1);
 
   renderPublicProfiles();
   renderAdmin();
   saveSession();
-
   toast('Reporte confirmado y reputación actualizada.');
 }
 
@@ -1611,14 +1401,12 @@ function rechazar(i){
   r.ia = 'Se detectó evidencia insuficiente o inconsistencias';
 
   applyReviewToProfile(r, false, false);
-
   revisados.unshift({...r});
   reportes.splice(i,1);
 
   renderPublicProfiles();
   renderAdmin();
   saveSession();
-
   toast('Reporte rechazado y movido a revisados.');
 }
 
@@ -1644,7 +1432,6 @@ function resolverIA(){
   renderPublicProfiles();
   renderAdmin();
   saveSession();
-
   toast('La IA resolvió todos los pendientes de la bandeja.');
 }
 
@@ -1690,7 +1477,6 @@ function seedAdminReports(){
 
   renderAdmin();
   saveSession();
-
   toast('Se cargaron reportes demo para la presentación.');
 }
 
@@ -1721,6 +1507,7 @@ function renderAdmin(){
         <div class="statusLine"><b>Descripción:</b> ${r.desc}</div>
         <div class="statusLine"><b>Evidencia:</b> ${r.evidencia}</div>
         <div class="statusLine"><b>IA:</b> ${r.ia}</div>
+        <div class="statusLine"><b>Confianza del reportante:</b> ${92 - (i*3)}%</div>
         <div class="adminActions">
           <button class="btn" onclick="aprobar(${i})">Confirmar</button>
           <button class="btn btnDanger" onclick="rechazar(${i})">Rechazar</button>
@@ -1758,6 +1545,7 @@ if(currentUser){
   document.getElementById('historySection').classList.remove('hidden');
   document.getElementById('publicSection').classList.remove('hidden');
   updateDashboard();
+  renderVerificationPills();
   renderHistory();
   renderPublicProfiles();
 }
